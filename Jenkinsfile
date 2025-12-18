@@ -4,7 +4,7 @@ pipeline{
      stage('clone Repo')
            {
 	  steps{
-               git clone 'https://github.com/Patil-Satyajeet/devops-jenkins-ansible.git'
+               sh "git clone https://github.com/Patil-Satyajeet/devops-jenkins-ansible.git"
                }
            }
      stage('ansible dryn run')
