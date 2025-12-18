@@ -1,0 +1,14 @@
+---
+  - name: install nginx and tranfer file to remote server
+    hosts: all
+    become: yes
+    tasks:
+      - name: instll apache
+        apt:
+          name: nginx
+          state: present
+          update_cache: yes
+      - name: copy index.html
+        copy:
+          src: index.html
+          dest: /var/www/html/index.html
