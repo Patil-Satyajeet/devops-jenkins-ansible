@@ -1,23 +1,19 @@
-pipeline{
-  agent any
-  stages {
-     stage('clone Repo')
-           {
-	  steps{
-               sh "git clone https://github.com/Patil-Satyajeet/devops-jenkins-ansible.git"
-               }
-           }
-     stage('ansible dryn run')
-          {
-         steps{
-              sh 'ansible-playbook deploy.yml --check'
-              }
-          }
-     stage('ansible-apply')
-         {
-        steps{
-             sh 'ansible-playbook deploy.yml'
-             }
-         }
+pipeline {
+    agent any
+    environment {
+        ANSIBLE_CONFIG = "/etc/ansible/ansible.cfg"
+    }
+    stages {
+        // Remove the manual 'clone Repo' stage entirely
+        stage('Ansible Dry Run') {
+            steps {
+                sh 'ansible-playbook deploy.yml --check'
+            }
         }
+        stage('Ansible Apply') {
+            steps {
+                sh 'ansible-playbook deploy.yml'
+            }
+        }
+    }
 }
